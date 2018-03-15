@@ -1,5 +1,3 @@
-package models;
-
 import static org.junit.Assert.*;
 
 import java.util.HashSet;
@@ -7,14 +5,10 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * @author douglas
- *
- */
 public class DieTest {
-
-	private Die die1, die2, die3;
-
+	
+	private Die die, die1, die2, die3;
+	
 	@Before
 	public void setUp() {
 		die1 = new Die();
@@ -22,7 +16,50 @@ public class DieTest {
 		die3 = new Die(4, 2); 
 		
 	}
+	
+	@Test
+	public void testConstrutorPadrao(){
+		this.die = new Die();
+		assertEquals(Die.DEFAULT_SIDES, this.die.getNumSides());
+		assertEquals(1, this.die.getResult());
+	}
+	
+	@Test
+	public void testConstrutorApenasComNumeroLados(){
+		this.die = new Die(10);
+		assertEquals(10, this.die.getNumSides());
+		assertEquals(1, this.die.getResult());
+	}
+	
+	@Test
+	public void testConstrutorComNumeroLadosEResultado(){
+		this.die = new Die(10, 5);
+		assertEquals(10, this.die.getNumSides());
+		assertEquals(5, this.die.getResult());
+	}
 
+	@Test
+	public void testToString(){
+		this.die = new Die(20, 4);
+		String resultadoEsperado = "Num sides " + 20 + " result " + 4;
+		assertEquals(resultadoEsperado, this.die.toString());
+	}
+	
+	@Test
+	public void testEquals(){
+		Die die1 = new Die();
+		Die die2 = new Die();
+		
+		assertEquals(die1, die2);
+	}
+	
+	@Test
+	public void testRoll(){
+		this.die = new Die(10, 5);
+		assertTrue(this.die.roll() >= 1 && this.die.roll() <= 10);
+		
+	}
+	
 	@Test
 	public void testRoll1() {
 		assertTrue(this.die1.roll() >= 1 || this.die1.roll() <= 6);
@@ -105,11 +142,6 @@ public class DieTest {
 		Die otherDie = new Die(3, 1);
 		assertFalse(this.die3.equals(otherDie));
 	}
-
-	@Test
-	public void testToString() {
-		assertEquals("Num sides 4 result 2", this.die3.toString());
-	}
 	
 	@Test
 	public void testDie1() {
@@ -155,50 +187,4 @@ public class DieTest {
 			assertEquals(a.getMessage(), "Violation of precondition: numSides = -9numSides must be greater than 1");
 		}
 	}
-
-	private Die die;
-	
-	@Test
-	public void testConstrutorPadrao(){
-		this.die = new Die();
-		assertEquals(Die.DEFAULT_SIDES, this.die.getNumSides());
-		assertEquals(1, this.die.getResult());
-	}
-	
-	@Test
-	public void testConstrutorApenasComNumeroLados(){
-		this.die = new Die(10);
-		assertEquals(10, this.die.getNumSides());
-		assertEquals(1, this.die.getResult());
-	}
-	
-	@Test
-	public void testConstrutorComNumeroLadosEResultado(){
-		this.die = new Die(10, 5);
-		assertEquals(10, this.die.getNumSides());
-		assertEquals(5, this.die.getResult());
-	}
-
-	@Test
-	public void testToString2(){
-		this.die = new Die(20, 4);
-		String resultadoEsperado = "Num sides " + 20 + " result " + 4;
-		assertEquals(resultadoEsperado, this.die.toString());
-	}
-	
-	@Test
-	public void testEquals(){
-		Die die1 = new Die();
-		Die die2 = new Die();
-		
-		assertEquals(die1, die2);
-	}
-	
-	@Test
-	public void testRoll(){
-		this.die = new Die(10, 5);
-		assertTrue(this.die.roll() >= 1 && this.die.roll() <= 10);
-		
-	}
 }
-
