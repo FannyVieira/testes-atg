@@ -111,10 +111,10 @@ public class DieTest {
 		assertEquals("Num sides 4 result 2", this.die3.toString());
 	}
 	
-/*	@Test
+	@Test
 	public void testDie1() {
 		try{
-			Die otherDie = new Die(0, 0);
+			new Die(0, 0);
 		} catch (AssertionError a) {
 			assertEquals(a.getMessage(), "Violation of precondition");
 		}
@@ -123,7 +123,7 @@ public class DieTest {
 	@Test
 	public void testDie2() {
 		try{
-			Die otherDie = new Die(0, 2);
+			new Die(0, 2);
 		} catch (AssertionError a) {
 			assertEquals(a.getMessage(), "Violation of precondition");
 		}
@@ -132,21 +132,73 @@ public class DieTest {
 	@Test
 	public void testDie3() {
 		try{
-			Die otherDie = new Die(4, 0);
+			new Die(4, 0);
+		} catch (AssertionError a) {
+			assertEquals(a.getMessage(), "Violation of precondition");
+		}
+	}
+	
+	@Test 
+	public void testDie4() {
+		try{
+			new Die(4, 8);
 		} catch (AssertionError a) {
 			assertEquals(a.getMessage(), "Violation of precondition");
 		}
 	}
 	
 	@Test
-	public void testDie4() {
+	public void testDie6() {
 		try{
-			Die otherDie = new Die(4, 8);
+			new Die(-9);
 		} catch (AssertionError a) {
-			assertEquals(a.getMessage(), "Violation of precondition");
+			assertEquals(a.getMessage(), "Violation of precondition: numSides = -9numSides must be greater than 1");
 		}
-	}*/
-	
+	}
 
+	private Die die;
+	
+	@Test
+	public void testConstrutorPadrao(){
+		this.die = new Die();
+		assertEquals(Die.DEFAULT_SIDES, this.die.getNumSides());
+		assertEquals(1, this.die.getResult());
+	}
+	
+	@Test
+	public void testConstrutorApenasComNumeroLados(){
+		this.die = new Die(10);
+		assertEquals(10, this.die.getNumSides());
+		assertEquals(1, this.die.getResult());
+	}
+	
+	@Test
+	public void testConstrutorComNumeroLadosEResultado(){
+		this.die = new Die(10, 5);
+		assertEquals(10, this.die.getNumSides());
+		assertEquals(5, this.die.getResult());
+	}
+
+	@Test
+	public void testToString2(){
+		this.die = new Die(20, 4);
+		String resultadoEsperado = "Num sides " + 20 + " result " + 4;
+		assertEquals(resultadoEsperado, this.die.toString());
+	}
+	
+	@Test
+	public void testEquals(){
+		Die die1 = new Die();
+		Die die2 = new Die();
+		
+		assertEquals(die1, die2);
+	}
+	
+	@Test
+	public void testRoll(){
+		this.die = new Die(10, 5);
+		assertTrue(this.die.roll() >= 1 && this.die.roll() <= 10);
+		
+	}
 }
 
