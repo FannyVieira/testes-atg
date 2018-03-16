@@ -5,6 +5,8 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
+import models.Die;
+
 public class DieTest {
 	
 	private Die die, die1, die2, die3;
